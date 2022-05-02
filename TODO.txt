@@ -1,0 +1,25 @@
+TODO:
+- Add flag options functionality
+
+DONE:
+x Research multi-data chunk WAVs? later (supports 2+GB files)
+x Read cue WAV header
+x Read LIST WAV chunk for cue labels
+
+
+
+
+
+
+Other research:
+
+SMPTE Dropframe timecode
+from https://videocide.com/glossary/drop-frame-timecode/
+...
+This meant that an "hour of timecode" at a nominal frame rate of 30 frame/s, when played back at 29.97 frame/s was longer than an hour of wall-clock time by 3.6 seconds, leading to an error of almost a minute and a half over a day.
+
+To correct this, drop-frame SMPTE timecode was invented. In spite of what the name implies, no video frames are dropped (skipped) using drop-frame timecode. Rather, some of the timecodes are dropped. In order to make an hour of timecode match an hour on the clock, drop-frame timecode skips frame numbers 0 and 1 of the first second of every minute, except when the number of minutes is divisible by ten (i.e. when minutes mod 10 equals zero). (Because editors making cuts must be aware of the difference in color subcarrier phase between even and odd frames, it is helpful to skip pairs of frame numbers.) This achieves an "easy-to-track" drop-frame rate of 18 frames each ten minutes (18,000 frames @ 30 frame/s) and almost perfectly compensates for the difference in rate, leaving a residual timing error of only 1.0 ppm, roughly 2.6 frames (86.4 milliseconds) per day.
+
+May not need to use NTSC drop-frame rate if Rei Kondoh doesn't need it.
+But good to know what it is.
+
