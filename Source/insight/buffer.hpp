@@ -64,8 +64,13 @@ namespace insight
 inline void
 insight::buffer::free()
 {
-    ::free(m_data);
-    m_data = nullptr;
+    if (m_data)
+    {
+        ::free(m_data);
+        m_data = nullptr;
+        m_size = 0;
+        m_current = nullptr;
+    }
 }
 
 inline size_t

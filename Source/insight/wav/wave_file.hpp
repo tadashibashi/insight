@@ -28,14 +28,14 @@ namespace insight::wave
 /// @brief Reads a file in .wav format
 class wave_file : public audio_file {
 public:
-    wave_file(const std::string &filepath);
+    explicit wave_file(const std::string &filepath);
     wave_file();
-    ~wave_file();
+
     bool open(const std::string &filepath) override;
     void close() override;
-    double seconds() const override;
-    std::string filepath() const override;
-    bool is_valid() const override;
+    [[nodiscard]] double seconds() const override;
+    [[nodiscard]] std::string filepath() const override;
+    [[nodiscard]] bool is_valid() const override;
     
     template <typename T>
     const std::vector<T *> *get_chunks()
@@ -62,12 +62,6 @@ private: // helpers
 
 inline
 wave_file::wave_file() : m_seconds{0}, m_valid{false}, m_filepath{} {}
-
-inline
-wave_file::~wave_file()
-{
-    close();
-}
 
 inline double
 wave_file::seconds() const

@@ -13,9 +13,10 @@ namespace insight
     class audio_file {
     public:
         audio_file() = default;
-        virtual ~audio_file() = default;
+        virtual ~audio_file() { close_(); }
         virtual bool open(const std::string &filepath) = 0;
-        virtual void close() = 0;
+
+        virtual void close() {};
         [[nodiscard]] virtual double seconds() const = 0;
         [[nodiscard]] virtual std::string filepath() const { return {}; }
         [[nodiscard]] virtual std::string filename() const
@@ -27,6 +28,8 @@ namespace insight
         }
 
         [[nodiscard]] virtual bool is_valid() const = 0;
+    private:
+        void close_() { close(); }
     };
 }
 

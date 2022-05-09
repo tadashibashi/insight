@@ -19,7 +19,7 @@ namespace insight
     /// @brief Supports opening MPEG v1-2, layers 1-3.
     class mpeg_file : public audio_file {
     public:
-        mpeg_file(const std::string &filepath);
+        explicit mpeg_file(const std::string &filepath);
         mpeg_file();
         ~mpeg_file() override;
 

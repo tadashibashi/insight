@@ -1,3 +1,6 @@
 [submodule "Source/options"]
 	path = Source/options
 	url = https://github.com/tadashibashi/options.git
+[submodule "Source/tests/Catch2"]
+	path = Source/tests/Catch2
+	url = https://github.com/catchorg/Catch2.git
