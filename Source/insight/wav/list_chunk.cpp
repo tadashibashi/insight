@@ -7,7 +7,7 @@
 #include "list_chunk.hpp"
 #include <iostream>
 
-namespace wave
+namespace insight::wave
 {
 
 void

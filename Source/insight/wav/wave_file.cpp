@@ -22,7 +22,7 @@
 
 using namespace std;
 
-namespace wave
+namespace insight::wave
 {
 
 

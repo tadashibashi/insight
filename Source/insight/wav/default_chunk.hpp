@@ -6,13 +6,13 @@
 //
 //  Created by Aaron Ishibashi on 4/18/22.
 //
-
-#ifndef default_chunk_hpp
-#define default_chunk_hpp
+#pragma once
+#ifndef insight_wave_default_chunk_hpp
+#define insight_wave_default_chunk_hpp
 #include <insight/wav/chunk.hpp>
 #include <vector>
 
-namespace wave
+namespace insight::wave
 {
 
 class default_chunk : public chunk {
@@ -23,11 +23,11 @@ public:
     }
     
 private:
-    void read_impl(buffer &buf, size_t chunk_size);
-    void clear_impl();
+    void read_impl(buffer &buf, size_t chunk_size) override;
+    void clear_impl() override;
     std::vector<unsigned char> m_data;
 };
 
 }
 
-#endif /* default_chunk_hpp */
+#endif /* insight_wave_default_chunk_hpp */

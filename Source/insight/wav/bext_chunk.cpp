@@ -10,15 +10,15 @@
 
 using namespace std;
 
-const int SMPTE_UMID_LENGTH = 64;
-const int BEXT_DESCRIPTION_LENGTH = 256;
-const int BEXT_ORIGINATOR_LENGTH = 32;
-const int BEXT_ORIGINATOR_REF_LENGTH = 32;
-const int BEXT_ORIGINATION_DATE_LENGTH = 10;
-const int BEXT_ORIGINATION_TIME_LENGTH = 8;
-const int BEXT_RESERVED_LENGTH = 180;
+static const int SMPTE_UMID_LENGTH = 64;
+static const int BEXT_DESCRIPTION_LENGTH = 256;
+static const int BEXT_ORIGINATOR_LENGTH = 32;
+static const int BEXT_ORIGINATOR_REF_LENGTH = 32;
+static const int BEXT_ORIGINATION_DATE_LENGTH = 10;
+static const int BEXT_ORIGINATION_TIME_LENGTH = 8;
+static const int BEXT_RESERVED_LENGTH = 180;
 
-namespace wave
+namespace insight::wave
 {
 
 bext_chunk::bext_chunk() : chunk{"bext"}

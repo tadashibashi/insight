@@ -4,8 +4,9 @@
 //
 //  Created by Aaron Ishibashi on 3/9/22.
 //
-#ifndef wave_file_hpp
-#define wave_file_hpp
+#pragma once
+#ifndef insight_wave_file_hpp
+#define insight_wave_file_hpp
 
 #include <insight/wav/chunk_cache.hpp>
 #include <insight/audio_file.hpp>
@@ -15,9 +16,12 @@
 #include <map>
 #include <typeindex>
 
-class buffer;
+namespace insight
+{
+    class buffer;
+}
 
-namespace wave
+namespace insight::wave
 {
 
 /// @class wave_file
@@ -86,4 +90,4 @@ wave_file::is_valid() const
 
 }
 
-#endif /* wav_reader_hpp */
+#endif /* insight_wave_file_hpp */

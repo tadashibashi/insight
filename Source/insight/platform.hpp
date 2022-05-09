@@ -1,12 +1,12 @@
 //
-//  platform_common.hpp
+//  platform.hpp
 //  insight
 //
 //  Created by Aaron Ishibashi on 4/11/22.
 //
-
-#ifndef platform_common_hpp
-#define platform_common_hpp
+#pragma once
+#ifndef insight_platform_hpp
+#define insight_platform_hpp
 
 #include <vector>
 #include <string>
@@ -18,6 +18,10 @@
     #error Platform not supported!
 #endif
 
-void collect_files(const std::string &in_path, std::vector<std::string> &out_paths);
+namespace insight
+{
+    void collect_files(const std::string &in_path, std::vector<std::string> &out_paths);
+}
+
 
 #endif /* platform_common_hpp */

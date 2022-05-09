@@ -4,13 +4,14 @@
 //
 //  Created by Aaron Ishibashi on 4/16/22.
 //
-#ifndef list_chunk_hpp
-#define list_chunk_hpp
+#pragma once
+#ifndef insight_list_chunk_hpp
+#define insight_list_chunk_hpp
 #include <insight/wav/chunk.hpp>
 #include <insight/wav/list/adtl_list_data.hpp>
 #include <cstdlib>
 
-namespace wave
+namespace insight::wave
 {
 
 class list_chunk : public chunk {
@@ -36,4 +37,4 @@ private:
 
 }
 
-#endif /* list_chunk_hpp */
+#endif /* insight_list_chunk_hpp */

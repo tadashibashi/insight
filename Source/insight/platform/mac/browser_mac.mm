@@ -7,25 +7,29 @@
 #include "browser_mac.hpp"
 #include "Finder.h"
 
-void get_selected_browser_paths(std::vector<std::string> &paths)
+using std::string, std::vector, std::swap;
+
+void
+insight::get_selected_browser_paths(vector<string> &paths)
 {
     FinderApplication *finder = [SBApplication applicationWithBundleIdentifier:@"com.apple.finder"];
     SBElementArray *selection = [[finder selection] get];
     NSArray *items = [selection arrayByApplyingSelector:@selector(URL)];
     
-    std::vector<std::string> temp;
+    vector<string> temp;
     for (NSString *item in items)
     {
         NSURL *url = [NSURL URLWithString:item];
         temp.emplace_back((char *)[[url path] UTF8String]);
     }
     
-    std::swap(temp, paths);
+    swap(temp, paths);
 }
 
-std::string get_filename_from_path(const std::string &path)
+string
+insight::get_filename_from_path(const string &path)
 {
-    std::string filename;
+    string filename;
     
     auto pos = path.find_last_of('/');
     if (pos != std::string::npos)
@@ -40,12 +44,13 @@ std::string get_filename_from_path(const std::string &path)
     return filename;
 }
 
-std::string get_file_ext_from_path(const std::string &path)
+string
+insight::get_file_ext_from_path(const string &path)
 {
-    std::string file_extension;
+    string file_extension;
     
     auto pos = path.find_last_of('.');
-    if (pos != std::string::npos)
+    if (pos != string::npos)
         file_extension = path.substr(pos + 1);
     
     return file_extension;

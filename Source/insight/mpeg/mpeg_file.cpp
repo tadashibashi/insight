@@ -7,25 +7,25 @@
 #include "mpeg_file.hpp"
 #include <fstream>
 #include <iostream>
-#include "swap_endian.hpp"
+#include <insight/swap_endian.hpp>
 
-mpeg_file::mpeg_file(const std::string &filepath) : m_filepath{filepath}, m_data{}, m_data_end{}, m_seconds{-1}, m_headers{}, m_valid{false}
+insight::mpeg_file::mpeg_file(const std::string &filepath) : m_filepath{filepath}, m_data{}, m_data_end{}, m_seconds{-1}, m_headers{}, m_valid{false}
 {
     open(filepath);
 }
 
-mpeg_file::mpeg_file() : m_filepath{}, m_data{}, m_data_end{}, m_seconds{-1}, m_headers{}, m_valid{false}
+insight::mpeg_file::mpeg_file() : m_filepath{}, m_data{}, m_data_end{}, m_seconds{-1}, m_headers{}, m_valid{false}
 {
     
 }
 
-mpeg_file::~mpeg_file()
+insight::mpeg_file::~mpeg_file()
 {
     close();
 }
 
 void
-mpeg_file::close()
+insight::mpeg_file::close()
 {
     if (m_data)
     {
@@ -42,7 +42,7 @@ mpeg_file::close()
 }
 
 bool
-mpeg_file::open(const std::string &filepath)
+insight::mpeg_file::open(const std::string &filepath)
 {
     std::ifstream file {filepath};
     if (!file.is_open())
@@ -74,19 +74,19 @@ mpeg_file::open(const std::string &filepath)
 }
 
 double
-mpeg_file::seconds() const
+insight::mpeg_file::seconds() const
 {
     return m_seconds;
 }
 
 size_t
-mpeg_file::total_frames() const
+insight::mpeg_file::total_frames() const
 {
     return m_headers.size();
 }
 
 unsigned char *
-mpeg_file::find_first_valid_header(mpeg_header &header, unsigned char *current) const
+insight::mpeg_file::find_first_valid_header(mpeg_header &header, unsigned char *current) const
 {
     while(current < m_data_end)
     {
@@ -132,13 +132,13 @@ mpeg_file::find_first_valid_header(mpeg_header &header, unsigned char *current) 
 }
 
 bool
-mpeg_file::is_pointer_inbounds(unsigned char *ptr) const
+insight::mpeg_file::is_pointer_inbounds(unsigned char *ptr) const
 {
     return ptr < m_data_end && ptr >= m_data;
 }
 
 unsigned char *
-mpeg_file::next_header(const mpeg_header &header, mpeg_header &out_header, unsigned char *ptr) const
+insight::mpeg_file::next_header(const mpeg_header &header, mpeg_header &out_header, unsigned char *ptr) const
 {
     // Check CRC protection bits
     if (header.is_crc_protected())
@@ -198,7 +198,7 @@ mpeg_file::next_header(const mpeg_header &header, mpeg_header &out_header, unsig
 }
 
 bool
-mpeg_file::init_headers()
+insight::mpeg_file::init_headers()
 {
     if (!m_headers.empty())
         m_headers.clear();
@@ -244,7 +244,7 @@ mpeg_file::init_headers()
 }
 
 void *
-mpeg_file::copy(void *target, unsigned byte_pos, unsigned size) const
+insight::mpeg_file::copy(void *target, unsigned byte_pos, unsigned size) const
 {
     if (byte_pos + size < (uintptr_t)m_data_end)
     {
@@ -259,7 +259,7 @@ mpeg_file::copy(void *target, unsigned byte_pos, unsigned size) const
 
 // more info: http://gabriel.mp3-tech.org/mp3infotag.html#replaygain
 bool
-mpeg_file::is_lame() const
+insight::mpeg_file::is_lame() const
 {
     char lame[5], header[5];
     copy(header, 36, 4);

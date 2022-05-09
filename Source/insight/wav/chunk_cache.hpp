@@ -4,17 +4,17 @@
 //
 //  Created by Aaron Ishibashi on 4/18/22.
 //
+#pragma once
+#ifndef insight_wave_chunk_cache_h
+#define insight_wave_chunk_cache_h
 
-#ifndef chunk_cache_h
-#define chunk_cache_h
 #include <insight/wav/chunk.hpp>
-
 #include <map>
 #include <vector>
 #include <typeindex>
 #include <functional>
 
-namespace wave
+namespace insight::wave
 {
 
     class chunk_cache {
@@ -83,4 +83,4 @@ namespace wave
 
 }
 
-#endif /* chunk_cache_h */
+#endif /* insight_wave_chunk_cache_h */

@@ -9,7 +9,8 @@
 
 using namespace std;
 
-void collect_files(const string &in_path, vector<string> &out_paths)
+void
+insight::collect_files(const string &in_path, vector<string> &out_paths)
 {
     // Avoid all system files that begin with '.', and definitely avoid the root directory from being selected due to any sort of bug that would pass an empty path.
     string base_filename = in_path.substr(in_path.find_last_of('/') + 1);

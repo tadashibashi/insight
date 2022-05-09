@@ -1,10 +1,11 @@
-#ifndef bext_hpp
-#define bext_hpp
+#pragma once
+#ifndef insight_wave_bext_hpp
+#define insight_wave_bext_hpp
 
 #include <insight/wav/chunk.hpp>
 #include <string>
 
-namespace wave
+namespace insight::wave
 {
     class bext_chunk : public chunk {
     public:
@@ -13,24 +14,24 @@ namespace wave
         
         bext_chunk();
         
-        const std::string &description() const { return m_description; }
-        const std::string &originator() const { return m_originator; }
-        const std::string &originator_ref() const { return m_originator_ref; }
-        const std::string &origination_date() const { return m_origination_date; }
-        const std::string &origination_time() const { return m_origination_time; }
-        uint64_t time_ref() const;
-        uint32_t time_ref_high() const { return m_time_ref_high; }
-        uint32_t time_ref_low() const { return m_time_ref_low; }
-        uint16_t version() const { return m_version; }
+        [[nodiscard]] const std::string &description() const { return m_description; }
+        [[nodiscard]] const std::string &originator() const { return m_originator; }
+        [[nodiscard]] const std::string &originator_ref() const { return m_originator_ref; }
+        [[nodiscard]] const std::string &origination_date() const { return m_origination_date; }
+        [[nodiscard]] const std::string &origination_time() const { return m_origination_time; }
+        [[nodiscard]] uint64_t time_ref() const;
+        [[nodiscard]] uint32_t time_ref_high() const { return m_time_ref_high; }
+        [[nodiscard]] uint32_t time_ref_low() const { return m_time_ref_low; }
+        [[nodiscard]] uint16_t version() const { return m_version; }
         
         /// @returns SMPTE UMID bytes, which is 64 bytes in length. This is not a null-terminated c-string.
-        const char *umid() const { return m_umid; }
-        uint16_t loudness_value() const  { return m_loudness_value; }
-        uint16_t max_truepeak_level() const { return m_max_truepeak_level; }
-        uint16_t max_momentary_loudness() const { return m_max_momentary_loudness; }
-        uint16_t max_shortterm_loudness() const { return m_max_shortterm_loudness; }
-        const std::string &reserved() const { return m_reserved; }
-        const std::string &coding_history() const { return m_coding_history; }
+        [[nodiscard]] const char *umid() const { return m_umid; }
+        [[nodiscard]] uint16_t loudness_value() const  { return m_loudness_value; }
+        [[nodiscard]] uint16_t max_truepeak_level() const { return m_max_truepeak_level; }
+        [[nodiscard]] uint16_t max_momentary_loudness() const { return m_max_momentary_loudness; }
+        [[nodiscard]] uint16_t max_shortterm_loudness() const { return m_max_shortterm_loudness; }
+        [[nodiscard]] const std::string &reserved() const { return m_reserved; }
+        [[nodiscard]] const std::string &coding_history() const { return m_coding_history; }
         
     private:
         void read_impl(buffer &buf, size_t length) override;

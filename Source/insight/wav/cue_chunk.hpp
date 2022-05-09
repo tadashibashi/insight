@@ -4,15 +4,15 @@
 //
 //  Created by Aaron Ishibashi on 4/12/22.
 //
-
-#ifndef cue_chunk_hpp
-#define cue_chunk_hpp
+#pragma once
+#ifndef insight_wave_cue_chunk_hpp
+#define insight_wave_cue_chunk_hpp
 
 #include <insight/wav/chunk.hpp>
 #include <string>
 #include <vector>
 
-namespace wave
+namespace insight::wave
 {
     struct cue {
         std::string name;
@@ -43,4 +43,4 @@ namespace wave
     };
 }
 
-#endif /* cue_chunk_hpp */
+#endif /* insight_wave_cue_chunk_hpp */

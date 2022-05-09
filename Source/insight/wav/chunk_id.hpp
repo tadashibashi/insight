@@ -6,13 +6,15 @@
 //
 //  Created by Aaron Ishibashi on 4/18/22.
 //
-#ifndef chunk_id_hpp
-#define chunk_id_hpp
+#pragma once
+#ifndef insight_wave_chunk_id_hpp
+#define insight_wave_chunk_id_hpp
+
 #include <cstdlib>
 #include <insight/buffer.hpp>
 #include <iosfwd>
 
-namespace wave
+namespace insight::wave
 {
     class chunk_id {
         friend std::ostream &operator<<(std::ostream &, const wave::chunk_id &);
@@ -38,4 +40,4 @@ namespace wave
     };
 }
 
-#endif /* chunk_id_hpp */
+#endif /* insight_wave_chunk_id_hpp */

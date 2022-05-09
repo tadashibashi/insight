@@ -4,20 +4,20 @@
 //
 //  Created by Aaron Ishibashi on 4/18/22.
 //
+#pragma once
+#ifndef insight_wave_list_adtl_subchunk_hpp
+#define insight_wave_list_adtl_subchunk_hpp
 
-#ifndef list_adtl_subchunk_hpp
-#define list_adtl_subchunk_hpp
 #include <insight/wav/chunk.hpp>
 #include <map>
 #include <string>
 
-namespace wave
+namespace insight::wave
 {
     struct adtl_list_data {
         adtl_list_data() : labels{} {}
-        ~adtl_list_data() {}
         std::map<uint32_t, std::string> labels;
     };
 }
 
-#endif /* list_adtl_subchunk_hpp */
+#endif /* insight_wave_list_adtl_subchunk_hpp */

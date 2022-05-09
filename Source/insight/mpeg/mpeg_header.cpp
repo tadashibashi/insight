@@ -6,23 +6,23 @@
 //
 #include "mpeg_header.hpp"
 #include <iostream>
-#include "swap_endian.hpp"
+#include <insight/swap_endian.hpp>
 
-const int MPEG_L1_SAMPLES_PER_SECOND = 384;
-const int MPEG_L2AND3_SAMPLES_PER_SECOND = 1152;
+static const int MPEG_L1_SAMPLES_PER_SECOND = 384;
+static const int MPEG_L2AND3_SAMPLES_PER_SECOND = 1152;
 
-mpeg_header::mpeg_header(unsigned four_bytes) : m_frame_sync{0}
+insight::mpeg_header::mpeg_header(unsigned four_bytes) : m_frame_sync{0}
 {
    set(four_bytes);
 }
 
-mpeg_header::mpeg_header() : m_frame_sync{0}
+insight::mpeg_header::mpeg_header() : m_frame_sync{0}
 {
     
 }
 
 void
-mpeg_header::set(unsigned four_bytes)
+insight::mpeg_header::set(unsigned four_bytes)
 {
     if (!is_big_endian())
         four_bytes = swap_endian(four_bytes);
@@ -43,7 +43,7 @@ mpeg_header::set(unsigned four_bytes)
 }
 
 int
-mpeg_header::samples_per_second() const
+insight::mpeg_header::samples_per_second() const
 {
    int ret;
    switch (layer())
@@ -66,7 +66,7 @@ mpeg_header::samples_per_second() const
 }
 
 void
-mpeg_header::log_bits() const
+insight::mpeg_header::log_bits() const
 {
     std::cout
     << std::bitset<11>{m_frame_sync} << ": frame sync\n"
@@ -85,7 +85,7 @@ mpeg_header::log_bits() const
 }
 
 int
-mpeg_header::sample_rate() const
+insight::mpeg_header::sample_rate() const
 {
     int temp;
     switch(m_version)
@@ -126,7 +126,7 @@ mpeg_header::sample_rate() const
 }
 
 int
-mpeg_header::bit_rate_v1() const
+insight::mpeg_header::bit_rate_v1() const
 {
     int temp;
     switch(m_layer)
@@ -200,7 +200,7 @@ mpeg_header::bit_rate_v1() const
 }
 
 int
-mpeg_header::bit_rate_v2() const
+insight::mpeg_header::bit_rate_v2() const
 {
     int temp;
     switch(m_layer)
@@ -255,7 +255,7 @@ mpeg_header::bit_rate_v2() const
 }
 
 int
-mpeg_header::bit_rate() const
+insight::mpeg_header::bit_rate() const
 {
     int temp;
     switch(m_version)
@@ -276,7 +276,7 @@ mpeg_header::bit_rate() const
 }
 
 bool
-mpeg_header::check(mpeg_header &other) const
+insight::mpeg_header::check(mpeg_header &other) const
 {
     return (is_valid() && other.is_valid() &&
             m_version == other.m_version &&
@@ -290,7 +290,7 @@ mpeg_header::check(mpeg_header &other) const
 }
 
 bool
-mpeg_header::is_valid_v2() const
+insight::mpeg_header::is_valid_v2() const
 {
     // Check that bitrates for mpeg version 2 match appropriate channel mode
     int bitrate = bit_rate_v2();
@@ -310,7 +310,7 @@ mpeg_header::is_valid_v2() const
 }
 
 int
-mpeg_header::frame_byte_length() const
+insight::mpeg_header::frame_byte_length() const
 {
     int ret;
     if (m_layer == MPEG_LAYER_1)

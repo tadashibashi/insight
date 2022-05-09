@@ -7,19 +7,19 @@
 #include "cue_chunk.hpp"
 #include <iostream>
 
-namespace wave
+namespace insight::wave
 {
 
 void
 cue::log() const
 {
     std::cout << "cue " << id << " info:\n"
-        "name:        " << name << '\n' <<
-        "position:    " << position << '\n' <<
-        "chunk type:  " << chunk_type << '\n' <<
-        "chunk start: " << chunk_start << '\n' <<
-        "block start: " << block_start << '\n' <<
-        "sampl start: " << sample_start << '\n';
+        "name:         " << name << '\n' <<
+        "position:     " << position << '\n' <<
+        "chunk  type:  " << chunk_type << '\n' <<
+        "chunk  start: " << chunk_start << '\n' <<
+        "block  start: " << block_start << '\n' <<
+        "sample start: " << sample_start << '\n';
 }
 
 cue_chunk::cue_chunk() : chunk("cue "), m_cues{}

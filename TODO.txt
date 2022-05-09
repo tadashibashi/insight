@@ -1,11 +1,12 @@
 TODO:
-- Add flag options functionality
+- Add ability to choose csv output -o 
+	use <filesystem> to choose path
 
 DONE:
 x Research multi-data chunk WAVs? later (supports 2+GB files)
 x Read cue WAV header
 x Read LIST WAV chunk for cue labels
-
+X Add flag options functionality
 
 
 

@@ -2,7 +2,7 @@
  * Finder.h
  * File copied from StackOverflow.com
  */
-
+#pragma once
 #import <AppKit/AppKit.h>
 #import <ScriptingBridge/ScriptingBridge.h>
 

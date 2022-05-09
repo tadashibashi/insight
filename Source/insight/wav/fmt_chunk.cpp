@@ -4,12 +4,10 @@
 //
 //  Created by Aaron Ishibashi on 4/18/22.
 //
-
 #include "fmt_chunk.hpp"
-#include <iostream>
 
 void
-wave::fmt_chunk::read_impl(buffer &buf, size_t chunk_size)
+insight::wave::fmt_chunk::read_impl(buffer &buf, size_t chunk_size)
 {
     uint16_t audio_format;
     uint16_t num_channels;

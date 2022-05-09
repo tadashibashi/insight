@@ -12,18 +12,18 @@ using namespace std;
 
 const int CHUNK_ID_LENGTH = 4;
 
-wave::chunk_id::chunk_id() : m_id{0, 0, 0, 0}
+insight::wave::chunk_id::chunk_id() : m_id{0, 0, 0, 0}
 {
 }
 
 size_t
-wave::chunk_id::read(buffer &buf)
+insight::wave::chunk_id::read(buffer &buf)
 {
     return buf.read(reinterpret_cast<unsigned char *>(m_id), CHUNK_ID_LENGTH);
 }
 
 void
-wave::chunk_id::clear()
+insight::wave::chunk_id::clear()
 {
     for (char *c = m_id, *end = c + CHUNK_ID_LENGTH;
          c != end;
@@ -34,7 +34,7 @@ wave::chunk_id::clear()
 }
 
 std::string
-wave::chunk_id::to_string() const
+insight::wave::chunk_id::to_string() const
 {
     std::string ret;
     ret.reserve(CHUNK_ID_LENGTH);
@@ -52,12 +52,12 @@ wave::chunk_id::to_string() const
 
 // ============= Assignment ========================================
 
-wave::chunk_id::chunk_id(const char *str) : m_id{0, 0, 0, 0}
+insight::wave::chunk_id::chunk_id(const char *str) : m_id{0, 0, 0, 0}
 {
     *this = str;
 }
 
-wave::chunk_id::chunk_id(const chunk_id &other) : m_id{0, 0, 0, 0}
+insight::wave::chunk_id::chunk_id(const chunk_id &other) : m_id{0, 0, 0, 0}
 {
     for (int i = 0; i < CHUNK_ID_LENGTH || other.m_id[i] != '\0'; ++i)
     {
@@ -65,8 +65,8 @@ wave::chunk_id::chunk_id(const chunk_id &other) : m_id{0, 0, 0, 0}
     }
 }
 
-wave::chunk_id &
-wave::chunk_id::operator=(const char *str)
+insight::wave::chunk_id &
+insight::wave::chunk_id::operator=(const char *str)
 {
     for (int i = 0; i < CHUNK_ID_LENGTH || str[i] != '\0'; ++i)
     {
@@ -78,7 +78,7 @@ wave::chunk_id::operator=(const char *str)
 
 // ============ Comparison Operators ================================
 bool
-wave::chunk_id::operator==(chunk_id &other) const
+insight::wave::chunk_id::operator==(chunk_id &other) const
 {
     for (int i = 0; i < CHUNK_ID_LENGTH; ++i)
     {
@@ -90,14 +90,14 @@ wave::chunk_id::operator==(chunk_id &other) const
 }
 
 bool
-wave::chunk_id::operator!=(chunk_id &other) const
+insight::wave::chunk_id::operator!=(chunk_id &other) const
 {
     return !(*this == other);
 }
 
 
 bool
-wave::chunk_id::operator==(const char *str) const
+insight::wave::chunk_id::operator==(const char *str) const
 {
     for (const char *i = m_id, *j = str, *end = m_id + CHUNK_ID_LENGTH;
          i != end;
@@ -111,7 +111,7 @@ wave::chunk_id::operator==(const char *str) const
 
 
 bool
-wave::chunk_id::operator!=(const char *str) const
+insight::wave::chunk_id::operator!=(const char *str) const
 {
     return !(*this == str);
 }
