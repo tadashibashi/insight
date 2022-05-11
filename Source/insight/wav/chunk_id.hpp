@@ -16,6 +16,7 @@
 
 namespace insight::wave
 {
+    /// Represents the four letters that identify a chunk
     class chunk_id {
         friend std::ostream &operator<<(std::ostream &, const wave::chunk_id &);
     public:
