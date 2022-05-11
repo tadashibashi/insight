@@ -43,6 +43,10 @@ insight::wave::chunk_id::to_string() const
          c != end;
          ++c)
     {
+        // null-terminator reached?
+        if (!*c)
+            break;
+
         ret += *c;
     }
     
@@ -68,11 +72,21 @@ insight::wave::chunk_id::chunk_id(const chunk_id &other) : m_id{0, 0, 0, 0}
 insight::wave::chunk_id &
 insight::wave::chunk_id::operator=(const char *str)
 {
-    for (int i = 0; i < CHUNK_ID_LENGTH || str[i] != '\0'; ++i)
+    if (str)
     {
-        m_id[i] = str[i];
+        for (int i = 0; i < CHUNK_ID_LENGTH; ++i)
+        {
+            m_id[i] = str[i];
+
+            if (str[i] == '\0')
+                break;
+        }
     }
-    
+    else
+    {
+        m_id[0] = 0;
+    }
+
     return *this;
 }
 
@@ -99,14 +113,21 @@ insight::wave::chunk_id::operator!=(chunk_id &other) const
 bool
 insight::wave::chunk_id::operator==(const char *str) const
 {
-    for (const char *i = m_id, *j = str, *end = m_id + CHUNK_ID_LENGTH;
-         i != end;
-         ++i, ++j)
+    if (str) // c-string pointing somewhere
     {
-        if (*j == '\0' || *i != *j) return false;
+        for (const char *i = m_id, *j = str, *end = m_id + CHUNK_ID_LENGTH;
+             i != end;
+             ++i, ++j)
+        {
+            if (*j == '\0' || *i != *j) return false;
+        }
+
+        return true;
     }
-    
-    return true;
+    else // nullptr was passed
+    {
+        return false;
+    }
 }
 
 

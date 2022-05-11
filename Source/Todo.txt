@@ -1,0 +1,17 @@
+===== Code clean-up and formatting, commenting =====
+Use bext_chunk as a template
+- current: wav folder files
+- mpeg folder files
+- insight folder files
+
+===== TESTS =====
+Current:
+    - finishing chunk_id_tests
+
+- Test each chunk's functionality to ensure they are working as expected.
+- timecode calculation tests
+    - export waves from Logic
+    - export waves from Cubase
+
+- wave file tests
+- mpeg file tests
