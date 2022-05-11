@@ -1,9 +1,11 @@
-//
-//  chunk.hpp
-//  insight
-//
-//  Created by Aaron Ishibashi on 4/18/22.
-//
+/*!
+ * @file chunk.hpp -- insight
+ * @author Aaron Ishibashi
+ *
+ * @class insight::wave::chunk
+ * @abstract Abstract interface for all chunk types
+ *
+ */
 #ifndef insight_wave_chunk_hpp
 #define insight_wave_chunk_hpp
 
@@ -36,8 +38,6 @@ public:
     [[nodiscard]] size_t size() const { return m_size; }
     
 private:
-
-    
     /// @abstract The chunk's Implementation of data reading.
     /// Abstract, must be overridden.
     virtual void read_impl(buffer &buf, size_t chunk_size) = 0;

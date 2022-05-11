@@ -3,6 +3,7 @@
 
 using namespace insight;
 
+// TODO: Test with wave files that CMAKE will copy into the executable directory
 TEST_CASE("", "[wave]")
 {
 

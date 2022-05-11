@@ -19,6 +19,7 @@ namespace insight
         timecode &framerate(long double rate) { m_framerate = rate; return *this; }
         [[nodiscard]] int subframe_base() const { return m_subframe_base; }
         timecode &subframe_base(int base) { m_subframe_base = base; return *this; }
+        [[nodiscard]] long double timecode_seconds() const { return m_tcseconds; }
     private:
         long double m_tcseconds; // timecode seconds
         long double m_framerate; // framerate
