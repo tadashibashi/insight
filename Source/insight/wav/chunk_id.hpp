@@ -1,11 +1,11 @@
-//
-//  chunk_id.hpp
-//  insight
-//
-//  Represents the four letters that identify a chunk
-//
-//  Created by Aaron Ishibashi on 4/18/22.
-//
+/*!
+ * @file chunk_id.hpp -- insight
+ * @author Aaron Ishibashi
+ *
+ * @class insight::wave::chunk_id
+ * @abstract Represents the four letters that identify a chunk
+ *
+ */
 #pragma once
 #ifndef insight_wave_chunk_id_hpp
 #define insight_wave_chunk_id_hpp
@@ -21,17 +21,24 @@ namespace insight::wave
     public:
         chunk_id();
         explicit chunk_id(const char *);
-        explicit chunk_id(const chunk_id &);
-        
-        size_t read(buffer &buf);
-        std::string to_string() const;
+
+        // Copying
+        chunk_id(const chunk_id &);
         chunk_id &operator=(const char *);
+
+        /// Read the four header bytes into this object.
+        size_t read(buffer &buf);
+
+        // Convert the internal bytes to a 4-lettered string
+        [[nodiscard]] std::string to_string() const;
+
+        // Clear the internals
         void clear();
-        
-        /// @abstract Comparison with another chunk_id
+
+        // chunk_id == chunk_id
         bool operator==(chunk_id &) const;
         bool operator!=(chunk_id &) const;
-        /// @abstract Comparison with a c-string
+        // chunk_id == const char *
         bool operator==(const char *) const;
         bool operator!=(const char *) const;
         
