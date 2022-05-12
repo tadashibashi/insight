@@ -21,6 +21,11 @@ public:
     {
         
     }
+
+    explicit default_chunk(const char *id) : chunk{id}, m_data{}
+    {
+
+    }
     
 private:
     void read_impl(buffer &buf, size_t chunk_size) override;

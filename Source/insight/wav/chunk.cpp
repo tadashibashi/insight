@@ -53,4 +53,5 @@ insight::wave::chunk::clear()
 {
     clear_impl();
     m_was_read = false;
+    m_size = 0;
 }

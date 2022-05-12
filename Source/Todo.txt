@@ -7,10 +7,16 @@ Use bext_chunk as a template
 ===== TESTS =====
 Current:
     x finishing chunk_id_tests
-    - default_chunk.hpp tests for chunk base functionality.
+    x default_chunk.hpp tests for chunk base functionality.
+    - chunk_cache
+    - cue_chunk
+    - list_chunk
+        - adtl list chunk
+    - fmt_chunk
+    - bext_chunk
 
-- Test each chunk's functionality to ensure they are working as expected.
-- timecode calculation tests
+- timecode calculation tests.
+Export waves and use their DAW session files for reference
     - export waves from Logic
     - export waves from Cubase
 
