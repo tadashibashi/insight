@@ -7,8 +7,9 @@
 #pragma once
 #ifndef insight_list_chunk_hpp
 #define insight_list_chunk_hpp
+
 #include <insight/wav/chunk.hpp>
-#include <insight/wav/list/adtl_list_data.hpp>
+#include "list/adtl_list_data.hpp"
 #include <cstdlib>
 
 namespace insight::wave
@@ -18,9 +19,8 @@ class list_chunk : public chunk {
 public:
     list_chunk() : chunk("LIST"), m_list_id{}, data{}
     {}
-    ~list_chunk() = default;
     
-    const chunk_id &sub_id() const { return m_list_id; }
+    [[nodiscard]] const chunk_id &sub_id() const { return m_list_id; }
     union {
         const char *null;
         adtl_list_data *adtl;

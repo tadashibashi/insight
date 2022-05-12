@@ -23,7 +23,7 @@ insight::wave::chunk_id::read(buffer &buf)
 }
 
 void
-insight::wave::chunk_id::clear()
+insight::wave::chunk_id::clear() noexcept
 {
     for (char *c = m_id, *end = c + CHUNK_ID_LENGTH;
          c != end;
@@ -135,4 +135,10 @@ bool
 insight::wave::chunk_id::operator!=(const char *str) const
 {
     return !(*this == str);
+}
+
+std::ostream &operator<<(std::ostream &os, const insight::wave::chunk_id &id)
+{
+    os << id.to_string();
+    return os;
 }

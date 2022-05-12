@@ -18,7 +18,6 @@ namespace insight::wave
 {
     /// Represents the four letters that identify a chunk
     class chunk_id {
-        friend std::ostream &operator<<(std::ostream &, const wave::chunk_id &);
     public:
         chunk_id();
         explicit chunk_id(const char *);
@@ -34,7 +33,7 @@ namespace insight::wave
         [[nodiscard]] std::string to_string() const;
 
         // Clear the internals
-        void clear();
+        void clear() noexcept;
 
         // chunk_id == chunk_id
         bool operator==(chunk_id &) const;
@@ -47,5 +46,7 @@ namespace insight::wave
         char m_id[4];
     };
 }
+
+std::ostream &operator<<(std::ostream &, const insight::wave::chunk_id &);
 
 #endif /* insight_wave_chunk_id_hpp */

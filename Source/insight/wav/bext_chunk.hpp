@@ -12,6 +12,7 @@
 
 #include <insight/wav/chunk.hpp>
 #include <string>
+#include <iosfwd>
 
 namespace insight::wave
 {
@@ -19,8 +20,10 @@ namespace insight::wave
     public:
         bext_chunk();
 
-        /// Logs the data in this bext_chunk to the console.
-        void log();
+        /// Logs the data in this bext_chunk to an output.
+        /// @param os if specified, information will be output to it.
+        /// Otherwise, if it is null, it will be output to std::cout.
+        void log(std::ostream *os = nullptr) const;
 
         // ========== Getters ==========
 
@@ -70,10 +73,11 @@ namespace insight::wave
         void read_impl(buffer &buf, size_t length) override;
         void clear_impl() override;
 
-        // Helper to read strings from the buffer. Clips out white space.
-        size_t read_string(buffer &buf, std::string &out_str, size_t length);
+        // Helper to read strings from the buffer. Trims white space.
+        static size_t read_string(buffer &buf, std::string &out_str, size_t length);
     };
 }
 
+std::ostream &operator << (std::ostream &os, const insight::wave::bext_chunk &bext);
 
 #endif

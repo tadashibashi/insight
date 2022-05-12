@@ -6,7 +6,8 @@ Use bext_chunk as a template
 
 ===== TESTS =====
 Current:
-    - finishing chunk_id_tests
+    x finishing chunk_id_tests
+    - default_chunk.hpp tests for chunk base functionality.
 
 - Test each chunk's functionality to ensure they are working as expected.
 - timecode calculation tests

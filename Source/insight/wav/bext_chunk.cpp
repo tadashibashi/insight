@@ -1,10 +1,8 @@
-//
-//  bext_chunk.cpp
-//  ai_wavtime
-//
-//  Created by Aaron Ishibashi on 4/12/22.
-//
-
+/*!
+ * @file bext_chunk.cpp – insight
+ * @abstract class bext_chunk implementation file
+ *
+ */
 #include "bext_chunk.hpp"
 #include <iostream>
 
@@ -21,45 +19,32 @@ static const int BEXT_RESERVED_LENGTH = 180;
 namespace insight::wave
 {
 
-bext_chunk::bext_chunk() : chunk{"bext"}
+bext_chunk::bext_chunk() : chunk{"bext"},
+    m_description(), m_time_ref_high(), m_time_ref_low(), m_loudness_range(),
+    m_loudness_value(), m_max_momentary_loudness(), m_max_shortterm_loudness(),
+    m_max_truepeak_level(), m_umid{0}, m_version()
 {
     clear();
 }
 
 void
-bext_chunk::log()
+bext_chunk::log(std::ostream *os) const
 {
-    cout << "=== Bext Chunk Info ===\n" <<
-    "description:      " << m_description << '\n' <<
-    "oritinator:       " << m_originator << '\n' <<
-    "originator ref:   " << m_originator_ref << '\n' <<
-    "origination date: " << m_origination_date << '\n' <<
-    "origination time: " << m_origination_time << '\n' <<
-    "time ref low:     " << m_time_ref_low << '\n' <<
-    "time ref high:    " << m_time_ref_high << '\n' <<
-    "bwf version std:  " << m_version << '\n' <<
-    "SMPTE Umid:       " << m_umid << '\n' <<
-    "loudness value:   " << m_loudness_value << '\n' <<
-    "loudness range:   " << m_loudness_range << '\n' <<
-    "max truepeak lv:  " << m_max_truepeak_level << '\n' <<
-    "max moment loudn: " << m_max_momentary_loudness << '\n' <<
-    "max shortt loudn: " << m_max_shortterm_loudness << '\n' <<
-    "reserved:         " << m_reserved << '\n' <<
-    "coding history:   " << m_coding_history << '\n';
+    std::ostream &output = (os) ? *os : std::cout;
+    output << *this;
 }
 
 void
 bext_chunk::read_impl(buffer &buf, size_t chunk_size)
 {
+    // Read each element into temporary variables first
     size_t bytes_read = 0;
-    
     std::string t_description, t_originator, t_originator_ref, t_origination_date, t_origination_time, t_reserved, t_coding_history;
     uint32_t t_time_ref_low, t_time_ref_high;
     uint16_t t_version, t_loudness_value, t_loudness_range,
         t_max_truepeak_level, t_max_momentary_loudness, t_max_shortterm_loudness;
     char t_umid[64];
 
-    
     bytes_read += read_string(buf, t_description, BEXT_DESCRIPTION_LENGTH);
     bytes_read += read_string(buf, t_originator, BEXT_ORIGINATOR_LENGTH);
     bytes_read += read_string(buf, t_originator_ref, BEXT_ORIGINATOR_REF_LENGTH);
@@ -76,7 +61,8 @@ bext_chunk::read_impl(buffer &buf, size_t chunk_size)
     bytes_read += buf.read(t_max_shortterm_loudness);
     bytes_read += read_string(buf, t_reserved, BEXT_RESERVED_LENGTH);
     bytes_read += read_string(buf, t_coding_history, chunk_size - bytes_read);
-    
+
+    // There were no exceptions, commit changes
     m_description.swap(t_description);
     m_originator.swap(t_originator);
     m_originator_ref.swap(t_originator_ref);
@@ -151,4 +137,26 @@ bext_chunk::clear_impl()
     m_coding_history.clear();
 }
 
+}
+
+std::ostream &operator<<(ostream &os, const insight::wave::bext_chunk &bext)
+{
+    os <<
+       "description:      " << bext.description() << '\n' <<
+       "oritinator:       " << bext.originator() << '\n' <<
+       "originator ref:   " << bext.originator_ref() << '\n' <<
+       "origination date: " << bext.origination_date() << '\n' <<
+       "origination time: " << bext.origination_time() << '\n' <<
+       "time ref low:     " << bext.time_ref_low() << '\n' <<
+       "time ref high:    " << bext.time_ref_high() << '\n' <<
+       "bwf version std:  " << bext.version() << '\n' <<
+       "SMPTE Umid:       " << bext.umid() << '\n' <<
+       "loudness value:   " << bext.loudness_value() << '\n' <<
+       "loudness range:   " << bext.loudness_range() << '\n' <<
+       "max truepeak lv:  " << bext.max_truepeak_level() << '\n' <<
+       "max moment loudn: " << bext.max_momentary_loudness() << '\n' <<
+       "max shortt loudn: " << bext.max_shortterm_loudness() << '\n' <<
+       "reserved:         " << bext.reserved() << '\n' <<
+       "coding history:   " << bext.coding_history() << '\n';
+    return os;
 }
