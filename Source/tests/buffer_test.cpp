@@ -1,9 +1,7 @@
-#include <catch2/catch_test_macros.hpp>
+#include "insight_tests.hpp"
 #include <insight/buffer.hpp>
 #include <string>
 #include <cstring>
-
-using namespace insight;
 
 TEST_CASE("buffer tests", "[buffer]")
 {

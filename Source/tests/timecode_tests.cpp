@@ -1,4 +1,4 @@
-#include <catch2/catch_test_macros.hpp>
+#include "insight_tests.hpp"
 #include <insight/timecode.hpp>
 
 using namespace insight;
