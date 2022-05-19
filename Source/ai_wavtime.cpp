@@ -77,25 +77,18 @@ void display_wave_info(wave::wave_file *wav)
         timecode end_tc(start_seconds + wav->seconds(), g_framerate, (int)g_subframe_base);
         timecode length_tc(wav->seconds(), g_framerate, (int)g_subframe_base);
 
-        string start_tc_str = start_tc.to_string();
-        string end_tc_str = end_tc.to_string();
-        string length_tc_str = length_tc.to_string();
-
         cout << "First Sample : " << bext->time_ref() << '\n';
         cout << "Sample rate  : " << fmt->sample_rate() << '\n';
         cout << "Start Seconds: " << start_seconds << '\n';
-        
-        cout << "Starts = " << start_tc_str << '\n';
-        cout << "Ends   = " << end_tc_str << '\n';
-
-        
+        cout << "Starts = " << start_tc.str() << '\n';
+        cout << "Ends   = " << end_tc.str() << '\n';
         
         // CSV Format: Filename,Start Time,End,Length
         // Line-endings will be added at file writing.
         if (g_write_csv)
         {
-            csv_data.emplace_back(wav->filename() + "," + start_tc_str + ","
-                                  + end_tc_str + "," + length_tc_str);
+            csv_data.emplace_back(wav->filename() + "," + start_tc.str() + ","
+                                  + end_tc.str() + "," + length_tc.str());
         }
     }
     
@@ -122,7 +115,7 @@ void display_wave_info(wave::wave_file *wav)
             timecode cue_tc((long double)(c.position / (long double)fmt->sample_rate()) + start_seconds,
                             g_framerate, (int)g_subframe_base);
             printf("  [%*u] (%*s) = ", (int)longest_num, c.id, (int)longest_name, c.name.c_str());
-            cout << cue_tc.to_string() << '\n';
+            cout << cue_tc.str() << '\n';
         }
         
         cout << "---------------------------------------------\n\n";
@@ -191,8 +184,8 @@ ai_wavtime::run(int *files_read, int *audio_files_counted)
     }
     catch (const exception &e)
     {
-        cerr << "There was a problem while attempting to accessing selected finder paths. "
-                "Does this program have the correct OS read permissions to the selected paths?:\n\n"
+        cerr << "Error: problem while trying to access selected Finder paths. "
+                "Does this program have the necessary OS read permissions to the path(s)?:\n\n"
                 << e.what() << "\n\n";
         return -1;
     }
@@ -281,7 +274,7 @@ ai_wavtime::run(int *files_read, int *audio_files_counted)
 
                 // append total length
                 timecode total_tc = timecode(total_time, g_framerate, (int)g_subframe_base);
-                file << "Total,,," << total_tc.to_string() << '\n';
+                file << "Total,,," << total_tc.str() << '\n';
                 file.close();
                 cout << "Csv file was successfully written at \"" << csv_filepath << "\"\n";
             }

@@ -15,14 +15,14 @@ set (Insight_Sources
 	wav/list/adtl_list_data.cpp wav/list/adtl_list_data.hpp
 	wav/list_chunk.cpp wav/list_chunk.hpp
 	wav/wave_file.cpp wav/wave_file.hpp
+	timecode.cpp timecode.hpp hash.hpp hash.cpp
 	)
 
 if (APPLE)
 	set(Insight_Platform_Sources
 		platform/mac/browser_mac.hpp
 		platform/mac/browser_mac.mm
-		platform/mac/Finder.h
-            timecode.cpp timecode.hpp)
+		platform/mac/Finder.h)
 endif()
 
 add_library(insight STATIC ${Insight_Sources} ${Insight_Platform_Sources})

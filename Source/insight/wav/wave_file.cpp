@@ -7,7 +7,7 @@
 #include "wave_file.hpp"
 
 #include <insight/buffer.hpp>
-#include <insight/platform.hpp>
+#include <insight/hash.hpp>
 #include <insight/wav/bext_chunk.hpp>
 #include <insight/wav/cue_chunk.hpp>
 #include <insight/wav/list_chunk.hpp>
@@ -24,7 +24,11 @@ using namespace std;
 
 namespace insight::wave
 {
-
+    static constexpr int fmt_hash  = insight::get_hash("fmt ");
+    static constexpr int data_hash = insight::get_hash("data");
+    static constexpr int bext_hash = insight::get_hash("bext");
+    static constexpr int cue_hash  = insight::get_hash("cue ");
+    static constexpr int LIST_hash = insight::get_hash("LIST");
 
 wave_file::wave_file(const string &filepath) : m_seconds{0}, m_valid{false}
 {
@@ -42,18 +46,27 @@ wave_file::close()
 void
 wave_file::parse_chunk(buffer &buf, size_t chunk_size, const chunk_id &id)
 {
-    if (id == "fmt ")
-        m_chunks.store_chunk(new fmt_chunk).read(buf, chunk_size);
-    else if (id == "data") // TODO: Create data chunk
-        m_chunks.store_chunk(new default_chunk(id)).read(buf, chunk_size);
-    else if (id == "bext")
-        m_chunks.store_chunk(new bext_chunk).read(buf, chunk_size);
-    else if (id == "cue ")
-        m_chunks.store_chunk(new cue_chunk).read(buf, chunk_size);
-    else if (id == "LIST")
-        m_chunks.store_chunk(new list_chunk).read(buf, chunk_size);
-    else
-        m_chunks.store_chunk(new default_chunk(id)).read(buf, chunk_size);
+    switch(id.hash())
+    {
+        case fmt_hash:
+            m_chunks.store_chunk(new fmt_chunk).read(buf, chunk_size);
+            break;
+        case data_hash: // TODO: Create data chunk if data needs manipulation
+            m_chunks.store_chunk(new default_chunk(id)).read(buf, chunk_size);
+            break;
+        case bext_hash:
+            m_chunks.store_chunk(new bext_chunk).read(buf, chunk_size);
+            break;
+        case cue_hash:
+            m_chunks.store_chunk(new cue_chunk).read(buf, chunk_size);
+            break;
+        case LIST_hash:
+            m_chunks.store_chunk(new list_chunk).read(buf, chunk_size);
+            break;
+        default:
+            m_chunks.store_chunk(new default_chunk(id)).read(buf, chunk_size);
+            break;
+    }
 }
 
 bool

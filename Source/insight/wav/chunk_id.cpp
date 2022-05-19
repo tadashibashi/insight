@@ -5,6 +5,7 @@
 //  Created by Aaron Ishibashi on 4/18/22.
 //
 #include "chunk_id.hpp"
+#include <insight/hash.hpp>
 #include <iostream>
 #include <cstring>
 
@@ -12,14 +13,17 @@ using namespace std;
 
 const int CHUNK_ID_LENGTH = 4;
 
-insight::wave::chunk_id::chunk_id() : m_id{0, 0, 0, 0}
+insight::wave::chunk_id::chunk_id() : m_id{0, 0, 0, 0, 0}, m_hash()
 {
 }
 
 size_t
 insight::wave::chunk_id::read(buffer &buf)
 {
-    return buf.read(reinterpret_cast<unsigned char *>(m_id), CHUNK_ID_LENGTH);
+    size_t bytesRead = buf.read(reinterpret_cast<unsigned char *>(m_id), CHUNK_ID_LENGTH);
+    m_hash = get_hash(m_id);
+
+    return bytesRead;
 }
 
 void
@@ -56,17 +60,21 @@ insight::wave::chunk_id::to_string() const
 
 // ============= Assignment ========================================
 
-insight::wave::chunk_id::chunk_id(const char *str) : m_id{0, 0, 0, 0}
+insight::wave::chunk_id::chunk_id(const char *str) : m_id{0, 0, 0, 0, 0}, m_hash()
 {
     *this = str;
 }
 
-insight::wave::chunk_id::chunk_id(const chunk_id &other) : m_id{0, 0, 0, 0}
+insight::wave::chunk_id::chunk_id(const chunk_id &other) : m_id{0, 0, 0, 0, 0}
 {
+    // copy ids
     for (int i = 0; i < CHUNK_ID_LENGTH || other.m_id[i] != '\0'; ++i)
     {
         m_id[i] = other.m_id[i];
     }
+
+    // copy cached hash
+    m_hash = other.m_hash;
 }
 
 insight::wave::chunk_id &
@@ -81,10 +89,12 @@ insight::wave::chunk_id::operator=(const char *str)
             if (str[i] == '\0')
                 break;
         }
+
+        m_hash = insight::get_hash(str);
     }
     else
     {
-        m_id[0] = 0;
+        m_id[0] = '\0';
     }
 
     return *this;

@@ -79,21 +79,21 @@ tcseconds_to_display_str(long double tc_seconds, long double base_rate, long dou
 
 namespace insight
 {
-    timecode::timecode() : m_framerate(30), m_subframe_base(80), m_tcseconds(0)
+    timecode::timecode() : m_framerate(30), m_subframe_base(80), m_tcseconds(0), m_str()
     {
 
     }
 
     timecode::timecode(long double seconds, long double framerate, int subframe_base) :
         m_framerate(framerate), m_subframe_base(subframe_base),
-        m_tcseconds(seconds_to_tcseconds(seconds, round(framerate), framerate, subframe_base))
+        m_tcseconds(seconds_to_tcseconds(seconds, round(framerate), framerate, subframe_base)), m_str()
     {
-
+        m_str = tcseconds_to_display_str(m_tcseconds, round(m_framerate), m_framerate, m_subframe_base);
     }
 
-    std::string
-    timecode::to_string() const
+    const std::string &
+    timecode::str() const
     {
-        return tcseconds_to_display_str(m_tcseconds, round(m_framerate), m_framerate, m_subframe_base);
+        return m_str;
     }
 }

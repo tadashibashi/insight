@@ -35,6 +35,8 @@ namespace insight::wave
         // Clear the internals
         void clear() noexcept;
 
+        int hash() const { return m_hash; }
+
         // chunk_id == chunk_id
         bool operator==(chunk_id &) const;
         bool operator!=(chunk_id &) const;
@@ -43,7 +45,8 @@ namespace insight::wave
         bool operator!=(const char *) const;
         
     private:
-        char m_id[4];
+        char m_id[5];
+        int m_hash;
     };
 }
 
